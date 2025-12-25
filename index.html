@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Selection</title>
+    <title>Rani Beauty Clinic Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,25 +17,141 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --navy: #0F1D2C;
+            --gold: #F3D6BE;
+            --light-bg: #FAF8F5;
+            --white: #FFFFFF;
+            --text: #2A2A2A;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #F5F5F0;
-            color: #333;
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text);
+        }
+
+        .hero {
+            background: var(--navy);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border-radius: 25px;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 60%);
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 3vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .hero-copy {
+            font-size: 1rem;
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary,
+        .cta-secondary {
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 14px 32px;
+            border-radius: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            letter-spacing: 0.08em;
+        }
+
+        .cta-primary {
+            background-color: var(--white);
+            color: var(--navy);
+            box-shadow: 0 10px 30px rgba(15, 29, 44, 0.45);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 38px rgba(15, 29, 44, 0.5);
+        }
+
+        .cta-secondary {
+            background-color: var(--gold);
+            color: var(--navy);
+            box-shadow: 0 6px 20px rgba(243, 214, 190, 0.8);
+        }
+
+        .cta-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(15, 29, 44, 0.35);
         }
 
         .header {
-            background-color: #1f385f;
-            padding: 20px;
+            background: transparent;
+            padding: 24px 0 0;
             text-align: center;
             position: relative;
+            overflow: visible;
         }
 
         .logo {
-            color: white;
+            color: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .logo-title {
             font-size: 32px;
-            font-weight: bold;
-            font-style: italic;
-            letter-spacing: 1px;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
         }
 
         .back-arrow {
@@ -52,22 +173,31 @@
         }
 
         main {
-            padding: 30px 20px;
-            background-color: #F5F5F0;
+            padding: 40px 20px 60px;
+            background-color: transparent;
         }
 
         #booking-step-location {
             margin-bottom: 20px;
         }
 
+        .content-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding-bottom: 30px;
+        }
+
         .action-bar.category-action {
             display: flex;
             align-items: center;
             gap: 20px;
-            padding: 15px 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 18px 22px;
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(15, 29, 44, 0.08);
             flex-wrap: wrap;
             position: relative;
         }
@@ -82,13 +212,13 @@
 
         .location-text {
             font-size: 16px;
-            color: #333;
-            font-weight: 500;
+            color: var(--navy);
+            font-weight: 600;
         }
 
         .address-text {
             font-size: 14px;
-            color: #666;
+            color: #5a5a5a;
         }
 
         .main-content {
@@ -97,10 +227,11 @@
         }
 
         .question {
-            font-size: 28px;
-            font-weight: bold;
+            font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+            font-weight: 700;
+            font-family: 'Playfair Display', Georgia, serif;
             margin-bottom: 10px;
-            color: #333;
+            color: var(--navy);
         }
 
         .categories-bar,
@@ -110,14 +241,15 @@
             align-items: center;
             position: relative;
             width: 100%;
-            max-width: 1200px;
-            height: 60px;
+            max-width: 1100px;
+            height: 62px;
             margin: 0 auto 28px;
-            background-color: #F5F5F0;
-            border: 1px solid #1f385f;
-            border-radius: 30px;
-            padding: 0;
+            background-color: var(--white);
+            border: 2px solid rgba(15, 29, 44, 0.4);
+            border-radius: 35px;
+            padding: 4px;
             overflow: visible;
+            box-shadow: 0 10px 30px rgba(15, 29, 44, 0.08);
         }
 
         #categories-section-Body,
@@ -129,15 +261,15 @@
         #categories-section-VIPFacials,
         #categories-section-More {
             height: 60px;
-            padding: 0 15px;
+            padding: 0 18px;
             text-align: center;
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
             border: none;
             background-color: transparent;
-            color: #1f385f;
+            color: var(--navy);
             border-radius: 0;
             margin: 0;
             position: relative;
@@ -146,6 +278,8 @@
             justify-content: center;
             flex: 1;
             white-space: nowrap;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
@@ -192,15 +326,17 @@
             display: block;
             width: 100%;
             padding: 12px 20px;
-            background-color: white;
-            color: #1f385f;
+            background-color: var(--white);
+            color: var(--navy);
             border: none;
-            border-bottom: 1px solid #F5F5F0;
+            border-bottom: 1px solid rgba(15, 29, 44, 0.08);
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 0.95rem;
             text-align: left;
-            transition: all 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            letter-spacing: 0.05em;
+            font-family: 'Montserrat', Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
@@ -210,13 +346,13 @@
         }
 
         .more-category-item:hover {
-            background-color: #1f385f;
-            color: white;
+            background-color: var(--navy);
+            color: var(--white);
         }
 
         .more-category-item.active {
-            background-color: #1f385f;
-            color: white;
+            background-color: var(--navy);
+            color: var(--white);
         }
 
         #categories-section-Body.section-selected,
@@ -227,8 +363,9 @@
         #categories-section-LaserFacials.section-selected,
         #categories-section-VIPFacials.section-selected,
         #categories-section-More.section-selected {
-            background-color: #1f385f;
-            color: white;
+            background-color: var(--navy);
+            color: var(--white);
+            box-shadow: 0 12px 30px rgba(15, 29, 44, 0.25);
         }
 
         #categories-section-Body.section-selected {
@@ -265,34 +402,35 @@
         }
 
         .service-card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            gap: 18px;
+            box-shadow: 0 12px 30px rgba(15, 29, 44, 0.12);
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
 
         .service-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 18px 36px rgba(15, 29, 44, 0.18);
         }
 
         .service-image {
             width: 80px;
             height: 80px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #a4b6d2 0%, #c2d2e8 100%);
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(243, 214, 190, 0.9), rgba(255, 255, 255, 0.6));
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--navy);
             font-size: 32px;
             flex-shrink: 0;
         }
@@ -302,21 +440,21 @@
         }
 
         .service-title {
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 1.1rem;
+            font-weight: 700;
             margin-bottom: 5px;
-            color: #333;
+            color: var(--navy);
         }
 
         .service-details {
-            font-size: 14px;
-            color: #666;
+            font-size: 0.9rem;
+            color: #5a5a5a;
             line-height: 1.4;
         }
 
         .service-arrow {
             font-size: 24px;
-            color: #1f385f;
+            color: var(--navy);
             flex-shrink: 0;
         }
 
@@ -531,556 +669,575 @@
         <a href="#" class="back-arrow">
             <img src="assets/images/brand/Rani-icon.png" alt="Rani Beauty Clinic" class="company-icon">
         </a>
-        <div class="logo">Rani Beauty Clinic</div>
+        <div class="logo">
+            <span class="logo-title">Rani Beauty Clinic</span>
+            <span class="logo-tagline">Award Winning Medical Aesthetics</span>
+        </div>
     </div>
 
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tagline">Elevate Radiance · Unlock Aura</div>
+            <div class="hero-title">Scientific, ethereal medspa care that reveals your inner glow.</div>
+            <p class="hero-copy">Award-winning practitioners blend clinical precision with serene luxury to deliver
+                luminous skin and renewed confidence.</p>
+            <div class="cta-actions">
+                <button class="cta-primary">Book an Appointment</button>
+                <button class="cta-secondary">Unlock Aura Membership</button>
+            </div>
+        </div>
+    </section>
+
     <main>
-        <div class="question">Address</div>
+        <div class="content-shell">
+            <div class="question">Address</div>
 
-        <div id="booking-step-location">
-            <div class="action-bar category-action">
-                <div class="location-info">
-                    <span class="location-text">401 Olympia AVE NE, Suite 101</span>
-                    <span class="address-text">Renton, WA 98002</span>
+            <div id="booking-step-location">
+                <div class="action-bar category-action">
+                    <div class="location-info">
+                        <span class="location-text">401 Olympia AVE NE, Suite 101</span>
+                        <span class="address-text">Renton, WA 98002</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="categories-bar" id="booking-categories-titles">
-            <button id="categories-section-Body" class="section-selected"
-                onclick="onCategoriesSectionChanged('Body',true)">Laser Hair Removal</button>
-            <button id="categories-section-Face" class=""
-                onclick="onCategoriesSectionChanged('Face',true)">Hydrafacial</button>
-            <button id="categories-section-Skincare" class=""
-                onclick="onCategoriesSectionChanged('Skincare',true)">Radiofrequency Microneedling</button>
-            <button id="categories-section-Discoloration" class=""
-                onclick="onCategoriesSectionChanged('Discoloration',true)">Skin Discoloration Correction</button>
-            <button id="categories-section-Consultation" class=""
-                onclick="onCategoriesSectionChanged('Consultation',true)">Consultation</button>
-            <button id="categories-section-LaserFacials" class=""
-                onclick="onCategoriesSectionChanged('LaserFacials',true)">Laser Facials</button>
-            <button id="categories-section-VIPFacials" class=""
-                onclick="onCategoriesSectionChanged('VIPFacials',true)">VIP Facials</button>
-            <div class="more-button-wrapper">
-                <button id="categories-section-More" class="" onclick="onMoreCategoriesClicked()">More</button>
-                <!-- More Categories Dropdown -->
-                <div id="more-categories-container" class="more-categories-dropdown" style="display: none;">
-                    <button class="more-category-item" onclick="showMoreCategory('addons')">Add-ons</button>
-                    <button class="more-category-item" onclick="showMoreCategory('iv-drip')">IV Drip Therapy</button>
-                    <button class="more-category-item" onclick="showMoreCategory('aesthetic')">Aesthetic
-                        treatments</button>
-                    <button class="more-category-item" onclick="showMoreCategory('vi-peel')">VI Peel</button>
-                    <button class="more-category-item" onclick="showMoreCategory('other')">Other</button>
+            <div class="categories-bar" id="booking-categories-titles">
+                <button id="categories-section-Body" class="section-selected"
+                    onclick="onCategoriesSectionChanged('Body',true)">Laser Hair Removal</button>
+                <button id="categories-section-Face" class=""
+                    onclick="onCategoriesSectionChanged('Face',true)">Hydrafacial</button>
+                <button id="categories-section-Skincare" class=""
+                    onclick="onCategoriesSectionChanged('Skincare',true)">Radiofrequency Microneedling</button>
+                <button id="categories-section-Discoloration" class=""
+                    onclick="onCategoriesSectionChanged('Discoloration',true)">Skin Discoloration Correction</button>
+                <button id="categories-section-Consultation" class=""
+                    onclick="onCategoriesSectionChanged('Consultation',true)">Consultation</button>
+                <button id="categories-section-LaserFacials" class=""
+                    onclick="onCategoriesSectionChanged('LaserFacials',true)">Laser Facials</button>
+                <button id="categories-section-VIPFacials" class=""
+                    onclick="onCategoriesSectionChanged('VIPFacials',true)">VIP Facials</button>
+                <div class="more-button-wrapper">
+                    <button id="categories-section-More" class="" onclick="onMoreCategoriesClicked()">More</button>
+                    <!-- More Categories Dropdown -->
+                    <div id="more-categories-container" class="more-categories-dropdown" style="display: none;">
+                        <button class="more-category-item" onclick="showMoreCategory('addons')">Add-ons</button>
+                        <button class="more-category-item" onclick="showMoreCategory('iv-drip')">IV Drip
+                            Therapy</button>
+                        <button class="more-category-item" onclick="showMoreCategory('aesthetic')">Aesthetic
+                            treatments</button>
+                        <button class="more-category-item" onclick="showMoreCategory('vi-peel')">VI Peel</button>
+                        <button class="more-category-item" onclick="showMoreCategory('other')">Other</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Laser Hair Removal Category -->
-        <div id="laser-hair-removal" class="services-container active">
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">$29 Upper Lip Laser Hair Removal</div>
+            <!-- Laser Hair Removal Category -->
+            <div id="laser-hair-removal" class="services-container active">
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">$29 Upper Lip Laser Hair Removal</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Eyebrows</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Eyebrows</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Sideburns</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Sideburns</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Back</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Back</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Pantyline</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Pantyline</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Neck</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Neck</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Face Laser Hair Removal</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Face Laser Hair Removal</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Hands and Fingers</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Hands and Fingers</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Chest</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Chest</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Happy Trail</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Happy Trail</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Areolas</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Areolas</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Forehead</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Forehead</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Jawline</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Jawline</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Underarms</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Underarms</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">LIMITED TIME $99 Upper Lip</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">LIMITED TIME $99 Upper Lip</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Feet & Toes</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Feet & Toes</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Brazilian</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Brazilian</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Ears</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Ears</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Body Laser Hair Removal</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Body Laser Hair Removal</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Ponytail Laser</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Ponytail Laser</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Abs</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Abs</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Full Legs</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Full Legs</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Cheeks</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Cheeks</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Chin</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Chin</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">✨</div>
-                <div class="service-content">
-                    <div class="service-title">Buttocks</div>
+                <div class="service-card">
+                    <div class="service-image">✨</div>
+                    <div class="service-content">
+                        <div class="service-title">Buttocks</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Hydrafacial Category -->
-        <div id="laser" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Underarm Hydrafacial</div>
+            <!-- Hydrafacial Category -->
+            <div id="laser" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Underarm Hydrafacial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Kerevive Hydrafacial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Kerevive Hydrafacial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Signature Hydrafacial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Signature Hydrafacial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Back Hydrafacial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Back Hydrafacial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Dior Hydrafacial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Dior Hydrafacial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Eye perks by Hydrafacial MD</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Eye perks by Hydrafacial MD</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Radiofrequency Microneedling Category -->
-        <div id="treatments" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Bra Fat Sculpt</div>
+            <!-- Radiofrequency Microneedling Category -->
+            <div id="treatments" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Bra Fat Sculpt</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Neck Radiofrequency Microneedling</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Neck Radiofrequency Microneedling</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Ballerina Arms with Radiofrequency Microneedling</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Ballerina Arms with Radiofrequency Microneedling</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">FULL FACE RF MICRO-NEEDLING</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">FULL FACE RF MICRO-NEEDLING</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Legs Cellulite Removal RF Microneedling</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Legs Cellulite Removal RF Microneedling</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Abdomen RF Microneedling</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Abdomen RF Microneedling</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Skin Discoloration Correction Category -->
-        <div id="discoloration" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Intimate Area</div>
+            <!-- Skin Discoloration Correction Category -->
+            <div id="discoloration" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Intimate Area</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Consultation Category -->
-        <div id="consultation" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">consultation</div>
+            <!-- Consultation Category -->
+            <div id="consultation" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">consultation</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Laser Facials Category -->
-        <div id="laser-facials" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Laser Resurfacing Facial</div>
+            <!-- Laser Facials Category -->
+            <div id="laser-facials" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Laser Resurfacing Facial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- VIP Facials Category -->
-        <div id="vip-facials" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Rani Beauty Clinic Venus Facial</div>
+            <!-- VIP Facials Category -->
+            <div id="vip-facials" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Rani Beauty Clinic Venus Facial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">$99 Express Facial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">$99 Express Facial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Lift & Glow Facial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Lift & Glow Facial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Glass Skin Facial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Glass Skin Facial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Laser Acne Facial</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Laser Acne Facial</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Add-ons Category -->
-        <div id="addons" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Dermaplane</div>
+            <!-- Add-ons Category -->
+            <div id="addons" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Dermaplane</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Blue Light Therapy</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Blue Light Therapy</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Red Light Therapy</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Red Light Therapy</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Lip Perks by Hydrafacial MD</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Lip Perks by Hydrafacial MD</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- IV Drip Therapy Category -->
-        <div id="iv-drip" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Weight Loss Drip Therapy</div>
+            <!-- IV Drip Therapy Category -->
+            <div id="iv-drip" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Weight Loss Drip Therapy</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Aesthetic treatments Category -->
-        <div id="aesthetic" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Dark Circle Removal Injections</div>
+            <!-- Aesthetic treatments Category -->
+            <div id="aesthetic" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Dark Circle Removal Injections</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Botox</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Botox</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Profhilo INjectable Moisturizer</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Profhilo INjectable Moisturizer</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- VI Peel Category -->
-        <div id="vi-peel" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Hyperpigmentation VI Peel</div>
+            <!-- VI Peel Category -->
+            <div id="vi-peel" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Hyperpigmentation VI Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Acne Scarring VI Peel Purify with Precision Plus</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Acne Scarring VI Peel Purify with Precision Plus</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Sensitive Skin VI Peel</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Sensitive Skin VI Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Rosacea VI Peel</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Rosacea VI Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Acne VI Peel</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Acne VI Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
-        </div>
 
-        <!-- Other Category -->
-        <div id="other" class="services-container">
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Cosmelan Peel</div>
+            <!-- Other Category -->
+            <div id="other" class="services-container">
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Cosmelan Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">$149 Skin Scan + Deep Clean</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">$149 Skin Scan + Deep Clean</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Holiday Botox 30 Units for $300</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Holiday Botox 30 Units for $300</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">SECRET FREE SPECIAL!!</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">SECRET FREE SPECIAL!!</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">BioRePeel Face & Neck Chemical Peel</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">BioRePeel Face & Neck Chemical Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">BioRePeel Back Chemical Peel</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">BioRePeel Back Chemical Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">Hydrafacial Skin Booster</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">Hydrafacial Skin Booster</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
-            </div>
-            <div class="service-card">
-                <div class="service-image">💆</div>
-                <div class="service-content">
-                    <div class="service-title">BioRePeel Facial Chemical Peel</div>
+                <div class="service-card">
+                    <div class="service-image">💆</div>
+                    <div class="service-content">
+                        <div class="service-title">BioRePeel Facial Chemical Peel</div>
+                    </div>
+                    <div class="service-arrow">→</div>
                 </div>
-                <div class="service-arrow">→</div>
             </div>
         </div>
     </main>
