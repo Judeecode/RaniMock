@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Selection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #F5F5F0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #1f385f;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .back-arrow {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .company-icon {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        main {
+            padding: 30px 20px;
+            background-color: #F5F5F0;
+        }
+
+        #booking-step-location {
+            margin-bottom: 20px;
+        }
+
+        .action-bar.category-action {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .location-text {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .address-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .main-content {
+            padding: 30px 20px;
+            background-color: #F5F5F0;
+        }
+
+        .question {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .categories-bar,
+        #booking-categories-titles {
+            display: flex;
+            gap: 0;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 60px;
+            margin: 0 auto 28px;
+            background-color: #F5F5F0;
+            border: 1px solid #1f385f;
+            border-radius: 30px;
+            padding: 0;
+            overflow: visible;
+        }
+
+        #categories-section-Body,
+        #categories-section-Face,
+        #categories-section-Skincare,
+        #categories-section-Discoloration,
+        #categories-section-Consultation,
+        #categories-section-LaserFacials,
+        #categories-section-VIPFacials,
+        #categories-section-More {
+            height: 60px;
+            padding: 0 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            background-color: transparent;
+            color: #1f385f;
+            border-radius: 0;
+            margin: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        #categories-section-Body {
+            border-radius: 30px 0 0 30px;
+        }
+
+        #categories-section-More {
+            border-radius: 0 30px 30px 0;
+        }
+
+        .more-button-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .more-button-wrapper #categories-section-More {
+            width: 100%;
+            border-radius: 0 30px 30px 0;
+        }
+
+        .more-button-wrapper #categories-section-More.section-selected {
+            border-radius: 0 30px 30px 0;
+        }
+
+        .more-categories-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background-color: white;
+            border: 1px solid #1f385f;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .more-category-item {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background-color: white;
+            color: #1f385f;
+            border: none;
+            border-bottom: 1px solid #F5F5F0;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: left;
+            transition: all 0.3s;
+        }
+
+        .more-category-item:last-child {
+            border-bottom: none;
+        }
+
+        .more-category-item:hover {
+            background-color: #1f385f;
+            color: white;
+        }
+
+        .more-category-item.active {
+            background-color: #1f385f;
+            color: white;
+        }
+
+        #categories-section-Body.section-selected,
+        #categories-section-Face.section-selected,
+        #categories-section-Skincare.section-selected,
+        #categories-section-Discoloration.section-selected,
+        #categories-section-Consultation.section-selected,
+        #categories-section-LaserFacials.section-selected,
+        #categories-section-VIPFacials.section-selected,
+        #categories-section-More.section-selected {
+            background-color: #1f385f;
+            color: white;
+        }
+
+        #categories-section-Body.section-selected {
+            border-radius: 30px 0 0 30px;
+        }
+
+
+        #categories-section-Body.section-selected::after,
+        #categories-section-Face.section-selected::after,
+        #categories-section-Skincare.section-selected::after,
+        #categories-section-Discoloration.section-selected::after,
+        #categories-section-Consultation.section-selected::after,
+        #categories-section-LaserFacials.section-selected::after,
+        #categories-section-VIPFacials.section-selected::after,
+        #categories-section-More.section-selected::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #1f385f;
+        }
+
+        .services-container {
+            display: none;
+        }
+
+        .services-container.active {
+            display: block;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #a4b6d2 0%, #c2d2e8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .service-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .service-arrow {
+            font-size: 24px;
+            color: #1f385f;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .question {
+                font-size: 24px;
+            }
+
+            .action-bar.category-action {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .location-info {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .categories-bar,
+            #booking-categories-titles {
+                position: relative;
+                left: 0;
+                width: 100%;
+                height: auto;
+                flex-wrap: wrap;
+                margin-top: 15px;
+                margin-bottom: 28px;
+                border-radius: 30px;
+                padding: 0;
+                overflow: visible;
+            }
+
+            #categories-section-Body,
+            #categories-section-Face,
+            #categories-section-Skincare,
+            #categories-section-Discoloration,
+            #categories-section-Consultation,
+            #categories-section-LaserFacials,
+            #categories-section-VIPFacials,
+            #categories-section-More {
+                flex: 1;
+                min-width: 100px;
+                width: auto;
+                padding: 0 15px;
+                font-size: 12px;
+                border-radius: 0;
+                height: 60px;
+            }
+
+            #categories-section-Body {
+                border-radius: 30px 0 0 30px;
+            }
+
+            .more-button-wrapper {
+                flex: 1;
+            }
+
+            .more-button-wrapper #categories-section-More {
+                border-radius: 0 30px 30px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="#" class="back-arrow">
+            <img src="assets/images/brand/Rani-icon.png" alt="Rani Beauty Clinic" class="company-icon">
+        </a>
+        <div class="logo">Rani Beauty Clinic</div>
+    </div>
+
+    <main>
+        <div class="question">Address</div>
+
+        <div id="booking-step-location">
+            <div class="action-bar category-action">
+                <div class="location-info">
+                    <span class="location-text">401 Olympia AVE NE, Suite 101</span>
+                    <span class="address-text">Renton, WA 98002</span>
+                </div>
+            </div>
+        </div>
+        <div class="categories-bar" id="booking-categories-titles">
+            <button id="categories-section-Body" class="section-selected"
+                onclick="onCategoriesSectionChanged('Body',true)">Laser Hair Removal</button>
+            <button id="categories-section-Face" class=""
+                onclick="onCategoriesSectionChanged('Face',true)">Hydrafacial</button>
+            <button id="categories-section-Skincare" class=""
+                onclick="onCategoriesSectionChanged('Skincare',true)">Radiofrequency Microneedling</button>
+            <button id="categories-section-Discoloration" class=""
+                onclick="onCategoriesSectionChanged('Discoloration',true)">Skin Discoloration Correction</button>
+            <button id="categories-section-Consultation" class=""
+                onclick="onCategoriesSectionChanged('Consultation',true)">Consultation</button>
+            <button id="categories-section-LaserFacials" class=""
+                onclick="onCategoriesSectionChanged('LaserFacials',true)">Laser Facials</button>
+            <button id="categories-section-VIPFacials" class=""
+                onclick="onCategoriesSectionChanged('VIPFacials',true)">VIP Facials</button>
+            <div class="more-button-wrapper">
+                <button id="categories-section-More" class="" onclick="onMoreCategoriesClicked()">More</button>
+                <!-- More Categories Dropdown -->
+                <div id="more-categories-container" class="more-categories-dropdown" style="display: none;">
+                    <button class="more-category-item" onclick="showMoreCategory('addons')">Add-ons</button>
+                    <button class="more-category-item" onclick="showMoreCategory('iv-drip')">IV Drip Therapy</button>
+                    <button class="more-category-item" onclick="showMoreCategory('aesthetic')">Aesthetic
+                        treatments</button>
+                    <button class="more-category-item" onclick="showMoreCategory('vi-peel')">VI Peel</button>
+                    <button class="more-category-item" onclick="showMoreCategory('other')">Other</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laser Hair Removal Category -->
+        <div id="laser-hair-removal" class="services-container active">
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">$29 Upper Lip Laser Hair Removal</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Eyebrows</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Sideburns</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Back</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Pantyline</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Neck</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Face Laser Hair Removal</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Hands and Fingers</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Chest</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Happy Trail</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Areolas</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Forehead</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Jawline</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Underarms</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">LIMITED TIME $99 Upper Lip</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Feet & Toes</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Brazilian</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Ears</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Body Laser Hair Removal</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Ponytail Laser</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Abs</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Full Legs</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Cheeks</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Chin</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">✨</div>
+                <div class="service-content">
+                    <div class="service-title">Buttocks</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Hydrafacial Category -->
+        <div id="laser" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Underarm Hydrafacial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Kerevive Hydrafacial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Signature Hydrafacial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Back Hydrafacial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Dior Hydrafacial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Eye perks by Hydrafacial MD</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Radiofrequency Microneedling Category -->
+        <div id="treatments" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Bra Fat Sculpt</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Neck Radiofrequency Microneedling</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Ballerina Arms with Radiofrequency Microneedling</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">FULL FACE RF MICRO-NEEDLING</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Legs Cellulite Removal RF Microneedling</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Abdomen RF Microneedling</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Skin Discoloration Correction Category -->
+        <div id="discoloration" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Intimate Area</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Consultation Category -->
+        <div id="consultation" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">consultation</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Laser Facials Category -->
+        <div id="laser-facials" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Laser Resurfacing Facial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- VIP Facials Category -->
+        <div id="vip-facials" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Rani Beauty Clinic Venus Facial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">$99 Express Facial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Lift & Glow Facial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Glass Skin Facial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Laser Acne Facial</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Add-ons Category -->
+        <div id="addons" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Dermaplane</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Blue Light Therapy</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Red Light Therapy</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Lip Perks by Hydrafacial MD</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- IV Drip Therapy Category -->
+        <div id="iv-drip" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Weight Loss Drip Therapy</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Aesthetic treatments Category -->
+        <div id="aesthetic" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Dark Circle Removal Injections</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Botox</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Profhilo INjectable Moisturizer</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- VI Peel Category -->
+        <div id="vi-peel" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Hyperpigmentation VI Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Acne Scarring VI Peel Purify with Precision Plus</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Sensitive Skin VI Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Rosacea VI Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Acne VI Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Other Category -->
+        <div id="other" class="services-container">
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Cosmelan Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">$149 Skin Scan + Deep Clean</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Holiday Botox 30 Units for $300</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">SECRET FREE SPECIAL!!</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">BioRePeel Face & Neck Chemical Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">BioRePeel Back Chemical Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">Hydrafacial Skin Booster</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">💆</div>
+                <div class="service-content">
+                    <div class="service-title">BioRePeel Facial Chemical Peel</div>
+                </div>
+                <div class="service-arrow">→</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function onCategoriesSectionChanged(section, force) {
+            // Map section names to category IDs
+            const sectionMap = {
+                'Body': 'laser-hair-removal',
+                'Face': 'laser',
+                'Skincare': 'treatments',
+                'Discoloration': 'discoloration',
+                'Consultation': 'consultation',
+                'LaserFacials': 'laser-facials',
+                'VIPFacials': 'vip-facials'
+            };
+
+            const categoryId = sectionMap[section];
+            if (!categoryId) return;
+
+            // Hide more categories container
+            document.getElementById('more-categories-container').style.display = 'none';
+
+            // Hide all service containers
+            const containers = document.querySelectorAll('.services-container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+
+            // Remove section-selected class from all buttons
+            const buttons = document.querySelectorAll('#booking-categories-titles button');
+            buttons.forEach(button => {
+                button.classList.remove('section-selected');
+            });
+
+            // Show selected category
+            document.getElementById(categoryId).classList.add('active');
+
+            // Add section-selected class to clicked button
+            const buttonId = 'categories-section-' + section;
+            document.getElementById(buttonId).classList.add('section-selected');
+        }
+
+        function onMoreCategoriesClicked() {
+            // Hide all main category service containers
+            const containers = document.querySelectorAll('.services-container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+
+            // Remove section-selected class from all main category buttons
+            const buttons = document.querySelectorAll('#booking-categories-titles button');
+            buttons.forEach(button => {
+                button.classList.remove('section-selected');
+            });
+
+            // Toggle dropdown
+            const moreContainer = document.getElementById('more-categories-container');
+            const moreButton = document.getElementById('categories-section-More');
+
+            if (moreContainer.style.display === 'none' || moreContainer.style.display === '') {
+                moreContainer.style.display = 'block';
+                moreButton.classList.add('section-selected');
+
+                // Position dropdown relative to More button
+                const buttonRect = moreButton.getBoundingClientRect();
+                const containerRect = moreContainer.getBoundingClientRect();
+                moreContainer.style.right = '0';
+            } else {
+                moreContainer.style.display = 'none';
+                moreButton.classList.remove('section-selected');
+            }
+
+            // Hide all more category service containers initially
+            const moreCategoryIds = ['addons', 'iv-drip', 'aesthetic', 'vi-peel', 'other'];
+            moreCategoryIds.forEach(id => {
+                document.getElementById(id).classList.remove('active');
+            });
+
+            // Remove active class from all more category items
+            const moreItems = document.querySelectorAll('.more-category-item');
+            moreItems.forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function showMoreCategory(categoryId) {
+            // Hide all service containers
+            const containers = document.querySelectorAll('.services-container');
+            containers.forEach(container => {
+                container.classList.remove('active');
+            });
+
+            // Remove active class from all more category items
+            const moreItems = document.querySelectorAll('.more-category-item');
+            moreItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected category
+            document.getElementById(categoryId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Close dropdown after selection
+            document.getElementById('more-categories-container').style.display = 'none';
+            document.getElementById('categories-section-More').classList.remove('section-selected');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            const moreContainer = document.getElementById('more-categories-container');
+            const moreButton = document.getElementById('categories-section-More');
+
+            if (moreContainer && moreButton) {
+                if (!moreContainer.contains(event.target) && !moreButton.contains(event.target)) {
+                    moreContainer.style.display = 'none';
+                    moreButton.classList.remove('section-selected');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
