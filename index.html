@@ -146,6 +146,8 @@
             justify-content: center;
             flex: 1;
             white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         #categories-section-Body {
@@ -199,6 +201,8 @@
             font-size: 14px;
             text-align: left;
             transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .more-category-item:last-child {
@@ -271,6 +275,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .service-card:hover {
@@ -315,13 +321,37 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 15px 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+                padding: 0 50px;
+            }
+
+            .company-icon {
+                height: 30px;
+            }
+
+            .back-arrow {
+                left: 10px;
+            }
+
+            main {
+                padding: 20px 15px;
+            }
+
             .question {
-                font-size: 24px;
+                font-size: 20px;
+                margin-bottom: 15px;
             }
 
             .action-bar.category-action {
                 flex-direction: column;
                 align-items: flex-start;
+                padding: 12px 15px;
+                gap: 10px;
             }
 
             .location-info {
@@ -329,6 +359,14 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
+            }
+
+            .location-text {
+                font-size: 14px;
+            }
+
+            .address-text {
+                font-size: 12px;
             }
 
             .categories-bar,
@@ -340,8 +378,8 @@
                 flex-wrap: wrap;
                 margin-top: 15px;
                 margin-bottom: 28px;
-                border-radius: 30px;
-                padding: 0;
+                border-radius: 20px;
+                padding: 4px;
                 overflow: visible;
             }
 
@@ -353,25 +391,136 @@
             #categories-section-LaserFacials,
             #categories-section-VIPFacials,
             #categories-section-More {
-                flex: 1;
-                min-width: 100px;
-                width: auto;
-                padding: 0 15px;
-                font-size: 12px;
-                border-radius: 0;
-                height: 60px;
+                flex: 1 1 calc(50% - 4px);
+                min-width: calc(50% - 4px);
+                max-width: calc(50% - 4px);
+                padding: 0 8px;
+                font-size: 11px;
+                border-radius: 16px;
+                height: 50px;
+                margin: 2px;
             }
 
             #categories-section-Body {
-                border-radius: 30px 0 0 30px;
+                border-radius: 16px;
             }
 
             .more-button-wrapper {
-                flex: 1;
+                flex: 1 1 calc(50% - 4px);
+                min-width: calc(50% - 4px);
+                max-width: calc(50% - 4px);
             }
 
             .more-button-wrapper #categories-section-More {
-                border-radius: 0 30px 30px 0;
+                border-radius: 16px;
+            }
+
+            .more-categories-dropdown {
+                right: 0;
+                left: auto;
+                min-width: 200px;
+                max-width: calc(100vw - 30px);
+            }
+
+            .service-card {
+                padding: 12px;
+                margin-bottom: 12px;
+                gap: 12px;
+            }
+
+            .service-image {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .service-title {
+                font-size: 16px;
+            }
+
+            .service-details {
+                font-size: 12px;
+            }
+
+            .service-arrow {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 8px;
+            }
+
+            .logo {
+                font-size: 18px;
+                padding: 0 40px;
+            }
+
+            .company-icon {
+                height: 28px;
+            }
+
+            main {
+                padding: 15px 10px;
+            }
+
+            .question {
+                font-size: 18px;
+            }
+
+            .action-bar.category-action {
+                padding: 10px 12px;
+            }
+
+            .categories-bar,
+            #booking-categories-titles {
+                border-radius: 15px;
+                padding: 3px;
+            }
+
+            #categories-section-Body,
+            #categories-section-Face,
+            #categories-section-Skincare,
+            #categories-section-Discoloration,
+            #categories-section-Consultation,
+            #categories-section-LaserFacials,
+            #categories-section-VIPFacials,
+            #categories-section-More {
+                flex: 1 1 100%;
+                min-width: 100%;
+                max-width: 100%;
+                font-size: 10px;
+                height: 45px;
+                margin: 1px 0;
+                border-radius: 12px;
+            }
+
+            .more-button-wrapper {
+                flex: 1 1 100%;
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .more-categories-dropdown {
+                width: calc(100vw - 20px);
+                right: 0;
+                left: auto;
+            }
+
+            .service-card {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .service-image {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .service-title {
+                font-size: 14px;
             }
         }
     </style>
